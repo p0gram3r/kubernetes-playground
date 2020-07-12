@@ -1,4 +1,4 @@
-- create hostPath directories on node01
+### Step 1: create hostPath directories on node01
 ```
 ssh node01
 mkdir /drupal-mysql-data
@@ -6,7 +6,7 @@ mkdir /drupal-data
 exit
 ```
 
-- create all necessary K8s objects
+### Step 2: create all necessary K8s objects
 ```
 ---
 apiVersion: v1

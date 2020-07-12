@@ -1,15 +1,11 @@
-- add new user and context to kubeconfig
+### Step 1: add new user and context to kubeconfig
 ```
 kubectl config set-credentials drogo --username=drogo --client-certificate=/root/drogo.crt --client-key=/root/drogo.key
 kubectl config set-context developer --cluster=kubernetes --user=drogo --namespace=development
-```
-
-- switch to new context
-```
 kubectl config use-context developer
 ```
 
-- create necessary K8s objects
+### Step 2: create necessary K8s objects
 ```
 ---
 apiVersion: v1

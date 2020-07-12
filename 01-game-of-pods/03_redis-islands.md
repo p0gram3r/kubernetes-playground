@@ -1,12 +1,12 @@
-- prepare data directories
+### Step 1: prepare PersistentVolumes
+- create hostPath directories on node01
 ```
 ssh node01
 mkdir /redis01 /redis02 /redis03 /redis04 /redis05 /redis06
 exit
 ```
 
-- prepate PersistentVolumes
-  - do not create the StatefulSet until you have finished creating the PersistentVolumeClaim!
+- prepare PersistentVolumes
   - In StatefulSets, the PersistentVolumeClaim name follows a predictable pattern: (volumeclaimtemplates-name)-(statefulset-name)-(replica-index).
   - note: replica indexes start with 0, not 1 ;-)
 ```
@@ -101,7 +101,7 @@ spec:
     path: "/redis06"
 ```
 
-- create StatefulSet and Service
+### Step 2: create StatefulSet and Service
 ```
 apiVersion: v1
 kind: Service
@@ -170,8 +170,8 @@ spec:
           storage: 1Gi
 ```
 
-- run the Redis cluster init command
-  - note: keep the trailing space at the end of the jsonpath!
+### Step 3: run Redis cluster init command
+- note: keep the trailing space at the end of the jsonpath!
 ```
 kubectl exec -it redis-cluster-0 -- redis-cli --cluster create --cluster-replicas 1 $(kubectl get pods -l app=redis-cluster -o jsonpath='{range.items[*]}{.status.podIP}:6379 ')
 ```
